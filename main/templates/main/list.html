@@ -1,0 +1,31 @@
+{% extends "main\index.html" %}
+
+{% block content %}
+
+
+    <div id="display">
+        <h2>Add Item</h2>
+        <form action="add_todo" method="post">
+        {% csrf_token %}
+
+            <input type="text" name="content" class="form-control mt-3 add-item"placeholder="Enter your Task here!" required>        
+            <button type="submit" class="btn btn-primary mt-2" >Submit</button>
+        
+        </form>
+
+
+        <div id="todo">
+        <ul class="list-group mt-5">
+
+        {% for todo_item in todo_items %}
+            <li class="list-group-item" id="item"><div id='text'>{{todo_item.text}}</div>
+                    <form action="delete_todo/{{todo_item.id}}/" action="post"  >
+                    {% csrf_token %}
+                    <button type="submit" class ="btn btn-sm btn-danger">DELETE</button>
+                    </form>
+            </li>
+        {% endfor %}
+        </ul>
+        </div>
+    </div>
+{% endblock content%}
