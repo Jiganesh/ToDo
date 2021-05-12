@@ -26,7 +26,7 @@ SECRET_KEY =os.environ['SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["jiganesh-todolist.herokuapp.com"]
+ALLOWED_HOSTS = ["jiganesh-todolist.herokuapp.com","localhost","127.0.0.1"]
 
 
 # Application definition

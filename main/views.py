@@ -13,20 +13,15 @@ def index(request):
 def add_todo(request):
 
     content_to_add= request.POST['content']  #get from form with name content
-
-
     if content_to_add.replace(" ","") != "":
         current_date = timezone.now() #to get time
-
         created_obj = Todo.objects.create(added_date=current_date, text=content_to_add)
-        
-        print(created_obj.id)
-        print(Todo.objects.all().count())
-
-
     return HttpResponseRedirect("/")
 
 def delete_todo(request,todo_id):
-    if Todo.objects.all().count() >0:
-        Todo.objects.get(id=todo_id).delete()
-    return HttpResponseRedirect("/")
+    try:
+        if Todo.objects.all().count() >0:
+            Todo.objects.get(id=todo_id).delete()
+        return HttpResponseRedirect("/")
+    except:
+        return HttpResponseRedirect("/")
