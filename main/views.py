@@ -7,7 +7,7 @@ from .models import Todo
 
 def index(request):
     todo_items =Todo.objects.all().order_by("added_date")
-    return render(request, 'main/list.html',{"todo_items": todo_items})
+    return render(request, 'main/index.html',{"todo_items": todo_items})
 
 
 def add_todo(request):
