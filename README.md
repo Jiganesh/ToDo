@@ -1,30 +1,57 @@
-To check Django 
+# Todo List :
 
-```
+[Todo List Application](https://jiganesh-todolist.herokuapp.com/)
+
+This Todo List is based on Django which is open-source framework used for rapid Web-Development. The Project was built to understand workflow of Application Development and Deployment.
+
+Heroku is the platform which I used to Host the Web Application on. I did not find any suitable tutorial which explained the whole creation and deployment of application, so I built and tried to explain whole process as much as I can.
+
+## About Project
+Technologies Used :
+Django
+HTML
+CSS
+Heroku
+
+Django is mostly used for CRUD Web Application so I made Todo list which can be very basic application of it.
+
+
+## Desktop View :
+
+![desktop view](Images/desktopview.png)
+<br>
+## Mobile View :
+
+![Mobile view](Images/mobileview.png)
+
+
+
+
+Let's Setup first and check if everything we want we have it or not, To check Django is there in your system or not:
+
+```sh
 python -m django --version
 ```
 
-
+Make a folder which will contain the django project in it
 To create virtual environment and activate it
-
-```
-virtualenv env
-
+```sh
+virtualenv env\
 .\env\Scripts\activate
 ```
 
 
 To check create a project :
-```
+```sh
 django-admin startproject [ProjectName]
 ```
 
 The Development Server:
-```
+```sh
 python manage.py runserver
 ```
 To create app :
-```
+```sh
 python manage.py startapp [AppName]
 ```
 
@@ -150,6 +177,53 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 ```
+
+What we did here was added the url for our project and now we need to give urls in our project so make urls .py in [appname] folder in our case which is main and with that we can set up our urls and what will they do:
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('add_todo', views.add_todo, name="add_todo"),
+    path('delete_todo/<int:todo_id>/',views.delete_todo,name ="delete_todo")
+]
+```
+Above is the final version of urls python file
+
+This is the Final Logic in views.py 
+
+```python
+from django.shortcuts import render
+from django.http import HttpResponse,HttpResponseRedirect
+from django.utils import timezone #to record current-time
+from .models import Todo
+
+# Create your views here.
+
+def index(request):
+    todo_items =Todo.objects.all().order_by("added_date")
+    return render(request, 'main/index.html',{"todo_items": todo_items})
+
+
+def add_todo(request):
+
+    content_to_add= request.POST['content']  #get from form with name content
+    if content_to_add.replace(" ","") != "":
+        current_date = timezone.now() #to get time
+        created_obj = Todo.objects.create(added_date=current_date, text=content_to_add)
+    return HttpResponseRedirect("/")
+
+def delete_todo(request,todo_id):
+    try:
+        if Todo.objects.all().count() >0:
+            Todo.objects.get(id=todo_id).delete()
+        return HttpResponseRedirect("/")
+    except:
+        return HttpResponseRedirect("/")
+```
 Now lets add some HTML and CSS so that it looks good
 
 So I will be using BOOTSTRAP here to keep thing simple and clean so lets add bootstrap links and all to our HTMl file.
@@ -218,3 +292,6 @@ git add .
 git commit -m "just commited all changes"
 git push heroku master
 ```
+
+To checkout this application : [Visit here](https://jiganesh-todolist.herokuapp.com/)
+
