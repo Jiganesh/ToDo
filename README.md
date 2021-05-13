@@ -1,12 +1,14 @@
-# Todo List :
+# Todo List
 
 [Todo List Application](https://jiganesh-todolist.herokuapp.com/)
 
 This Todo List is based on Django which is open-source framework used for rapid Web-Development. The Project was built to understand workflow of Application Development and Deployment.
 
 Heroku is the platform which I used to Host the Web Application on. I did not find any suitable tutorial which explained the whole creation and deployment of application, so I built and tried to explain whole process as much as I can.
+<hr>
 
-## About Project
+## About-Project
+
 Technologies Used :
 Django
 HTML
@@ -15,12 +17,11 @@ Heroku
 
 Django is mostly used for CRUD Web Application so I made Todo list which can be very basic application of it.
 
-
-## Desktop View :
+## Desktop View
 
 ![desktop view](Images/desktopview.png)
 <br>
-## Mobile View :
+## Mobile View 
 
 ![Mobile view](Images/mobileview.png)
 
@@ -36,32 +37,37 @@ python -m django --version
 Make a folder which will contain the django project in it
 To create virtual environment and activate it
 ```sh
+
 virtualenv env\
 .\env\Scripts\activate
 ```
 
-
 To check create a project :
+
 ```sh
 django-admin startproject [ProjectName]
 ```
 
 The Development Server:
+
 ```sh
 python manage.py runserver
 ```
+
 To create app :
+
 ```sh
 python manage.py startapp [AppName]
 ```
 
-Now create first view in apps -> <text>views.py</text>
+Now create first view in apps -> views.py
 
 ```python
 from django.http import HttpResponse
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 ```
+
 To call the view, we need to map it to a URL and for this we need URLconf
 To create a URLconf in the polls directory, create a file called urls. py
 
@@ -88,19 +94,14 @@ urlpatterns = [
 ]
 ```
 
-
-
 Now you can see your view
-
 ```
 manage.py migrate  #first migrate
 manage.py runserver
 ```
 <br>
-<br>
 
 # TODO List app
-
 
 Creating Models
 For the current application we build a todo list so we need a model to store our data in it.
@@ -244,9 +245,9 @@ To work with Heroku CLI Open your terminal with the Project and follow the steps
 - Create your app with unique name so that you will get unique url
 - git remote:  git remote add just creates an entry in your git config that specifies a name for a particular 
 - Now we have to check locally once so we need a server hence u can use waitress as it works on linux and windows server you can check with pip freeze
-- change ALLOWED_HOST from project -> settings.py to ["*"]
+- change ALLOWED_HOST from project -> settings. py to ["*"]
 - Run locally with waitress
-- Create "Procfile" in same directory as manage.py
+- Create "Procfile" in same directory as manage. py
 - Edit Procfile so that we can use it with waitress to run locally
 - Now you can run it with heroku local
 - change ALLOWED_HOST = [projectpath,'localhost']
@@ -257,7 +258,7 @@ To work with Heroku CLI Open your terminal with the Project and follow the steps
 - set DEBUG to False
 - STATIC_ROOT = BASE_DIR / "static"
 - now we have to install whitenoise to load static files to load automatically with heroku
-- add whitenoise middleware below security middleware in MIDDLEWARE variable in settings.py 
+- add whitenoise middleware below security middleware in MIDDLEWARE variable in settings. py 
 - change procfile
 - collectstatic to get your staticfiles in one place
 - check Profile-declare type
